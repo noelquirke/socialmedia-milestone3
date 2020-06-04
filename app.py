@@ -1,10 +1,10 @@
-from flask import ( Flask, g, render_template, flash, url_for, redirect, abort )
+from flask import Flask, g, render_template, flash, url_for, redirect, abort
+# from flask.ext.bcrypt import check_password_hash
 from flask_bcrypt import check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, AnonymousUserMixin
 lm = LoginManager
 import models
 import forms
-
 
 DEBUG = True
 PORT = 8000
@@ -19,23 +19,23 @@ class Anonymous( AnonymousUserMixin ):
         self.username = 'Guest'
 
 login_manager = LoginManager()
-login_manager.init_app ( app )
+login_manager.init_app (app)
 login_manager.login_view = 'login'
 login_manager.anonymous_user = Anonymous
 
 
 @login_manager.user_loader
-def load_user( userId ):
+def load_user(userId):
     try:
-        return models.User.get( models.User.id == userId )
+        return models.User.get(models.User.id == userId)
     except models.DoesNotExist:
         return None
 
 
 @app.before_request
 def before_request():
-    "" "Connect to the database before each request" "" 
-    if not hasattr( g, 'db' ):
+    "" "Connect to the database before each request" ""
+    if not hasattr(g, 'db'):
         g.db = models.DATABASE
         g.db.connect()
         g.user = current_user
@@ -45,35 +45,35 @@ def before_request():
 
 
 @app.after_request
-def after_request( response ):
+def after_request(response):
     """ We close the connection to the database """
     g.db.close()
     return response
 
 
 @app.route("/post/<int:post_id>")
-def view_post( post_id ):
-    posts = models.Post.select().where( models.Post.id == post_id )
+def view_post(post_id):
+    posts = models.Post.select().where(models.Post.id == post_id)
     if posts.count() == 0:
-        abort( 404 )
-    return render_template( 'stream.html', stream = posts )
+        abort(404)
+    return render_template('stream.html', stream = posts)
 
 
 @app.route('/follow/<username>')
 @login_required
-def follow( username ):
+def follow(username):
     try:
-        to_user = models.User.get( models.User.username ** username )
+        to_user = models.User.get(models.User.username ** username)
     except models.DoesNotExist:
-        abort( 404 )
+        abort(404)
     else:
         try:
             models.Relationship.create( from_user = g.user._get_current_object(), to_user = to_user )
         except models.IntegrityError:
             pass
         else :
-            flash( 'Now you follow {}'.format( to_user.username ), "success" )
-    return redirect( url_for( 'stream', username = to_user.username ) )
+            flash('Now you follow {}'.format( to_user.username ), "success")
+    return redirect(url_for('stream', username = to_user.username))
 
 
 @app.route('/unfollow/<username>')
