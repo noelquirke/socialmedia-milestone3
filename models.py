@@ -1,7 +1,7 @@
 import datetime
 
-from flask_login import UserMixin
-from flask_bcrypt import generate_password_hash
+from flask_login import UserMixin # noqa
+from flask_bcrypt import generate_password_hash # noqa
 from peewee import * # noqa
 
 DATABASE = SqliteDatabase('social.db') # noqa
