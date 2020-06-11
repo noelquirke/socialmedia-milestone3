@@ -14,6 +14,7 @@
     <title>ConnectedSocialMedia</title>
 </head>
     <body>
+     <!-- Responsive Navbar using Bootstrap -->
         <nav class="navbar navbar-dark bg-dark">
             <a href="{{ url_for( 'index' ) }}" class="navbar-brand"> Connected <i class="fas fa-user-circle"></i> Welcome {{ current_user.username }} </a>
             {% if current_user.is_authenticated %}
