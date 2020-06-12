@@ -112,8 +112,8 @@ git commit -m "message"
 git push -u heroku master pushes the project to Heroku.
 In Heroku:
 Go to the project > setting > config vars
-IP = `0.0.0.0`
-PORT =  `5000`
+HOST = `0.0.0.0`
+PORT =  `8000`
 SECRET_KEY = noelquirke900@hotmail.com
 More > restart all dynos
 <h2>How to run the project locally?</h2>
@@ -138,23 +138,12 @@ Create a file called config.py In the terminal line enter echo 'config.py' > git
 Create app.py file In app.py, set the app.config variables to the variables set in the config.py file import config
 
 In the terminal line enter:
-python -m flask run which will run on http://127.0.0.1:5000
+python -m flask run which will run on http://127.0.0.1:8000
 <h3>Errors Occured</h3>
-Unfortunately my deployment did not work, after discussions with members of slack and my mentor we could not overcome the following issues. 
-020-06-12T13:25:42.553759+00:00 heroku[web.1]: State changed from crashed to starting
-2020-06-12T13:25:46.109577+00:00 heroku[web.1]: Starting process with command `python app.py`
-2020-06-12T13:25:48.071381+00:00 heroku[web.1]: Process exited with status 1
-2020-06-12T13:25:48.118805+00:00 heroku[web.1]: State changed from starting to crashed
-2020-06-12T13:25:48.023814+00:00 app[web.1]: Traceback (most recent call last):
-2020-06-12T13:25:48.023837+00:00 app[web.1]:   File "app.py", line 1, in <module>
-2020-06-12T13:25:48.023991+00:00 app[web.1]:     import models
-2020-06-12T13:25:48.023992+00:00 app[web.1]:   File "/app/models.py", line 3, in <module>
-2020-06-12T13:25:48.024110+00:00 app[web.1]:     from flask_login import UserMixin # noqa
-2020-06-12T13:25:48.024156+00:00 app[web.1]: ModuleNotFoundError: No module named 'flask_login'
-
-As project due date has arrived the main focus was to submit the project as is, and further research into the issue is needed. 
-
-Once feedback received, the project will be updated. 
+While deploying on Heroku I ran into the following error <br>
+Error R10 (Boot timeout) -> Web process failed to bind to $PORT within 60 seconds of launch <br>
+A work around this was installing gunicorn to fix the PORT issue and updating the Procfile with <br>
+web: gunicorn app:app <br>
 <h2>Code Used</h2>
 code templates used for cards
 index page layout theme bootstrap theme
