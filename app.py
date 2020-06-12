@@ -2,7 +2,7 @@ import models
 import forms
 from flask import Flask, g, render_template, flash, url_for, redirect, abort # noqa
 from flask_bcrypt import check_password_hash # noqa
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user, AnonymousUserMixin # noqa
+from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user, AnonymousUserMixin # noqa
 lm = LoginManager
 
 DEBUG = True
