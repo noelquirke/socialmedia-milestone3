@@ -1,5 +1,5 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField
+from flask_wtf import FlaskForm # noqa
+from wtforms import StringField, PasswordField, TextAreaField # noqa
 from wtforms.validators import DataRequired, ValidationError, Email, Regexp, Length, EqualTo # noqa
 from models import User
 

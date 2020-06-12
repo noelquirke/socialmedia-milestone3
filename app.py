@@ -68,7 +68,7 @@ def follow(username):
         abort(404)
     else:
         try:
-            models.Relationship.create(from_user=g.user._get_current_object(), to_user=to_user)
+            models.Relationship.create(from_user=g.user._get_current_object(), to_user=to_user) # noqa
         except models.IntegrityError:
             pass
         else:
@@ -85,11 +85,11 @@ def unfollow(username):
         abort(404)
     else:
         try:
-            models.Relationship.get(from_user=g.user._get_current_object(), to_user=to_user).delete_instance()
+            models.Relationship.get(from_user=g.user._get_current_object(), to_user=to_user).delete_instance() # noqa
         except models.IntegrityError:
             pass
         else:
-            flash('You stopped following {}'.format(to_user.username), "success")
+            flash('You stopped following {}'.format(to_user.username), "success") # noqa
     return redirect(url_for('stream', username=to_user.username))
 
 
@@ -98,7 +98,7 @@ def register():
     form = forms.RegisterForm()
     if form.validate_on_submit():
         flash('User register!!!', 'success')
-        models.User.create_user(username=form.username.data, email=form.email.data, password=form.password.data)
+        models.User.create_user(username=form.username.data, email=form.email.data, password=form.password.data) # noqa
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
 
@@ -132,7 +132,7 @@ def logout():
 def posts():
     form = forms.PostsForm()
     if form.validate_on_submit():
-        models.Post.create(user=g.user._get_current_object(), content=form.content.data.strip())
+        models.Post.create(user=g.user._get_current_object(), content=form.content.data.strip()) # noqa
         flash("Posted Message", "success")
         return redirect(url_for("index"))
     return render_template("post.html", form=form)
@@ -152,7 +152,7 @@ def stream(username=None):
     template = 'stream.html'
     if username and username != current_user.username:
         try:
-            user = models.User.select().where(models.User.username**username).get()
+            user = models.User.select().where(models.User.username**username).get() # noqa
         except models.DoesNotExist:
             abort(404)
         else:
@@ -173,7 +173,7 @@ def not_found(error):
 if __name__ == '__main__':
     models.initialize()
     try:
-        models.User.create_user(username="Noel", email="noelquirke900@hotmail.com", password="12345")
+        models.User.create_user(username="Noel", email="noelquirke900@hotmail.com", password="12345") # noqa
     except ValueError:
         pass
     app.run(debug=DEBUG, host=HOST, port=PORT)
