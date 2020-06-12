@@ -91,7 +91,7 @@ Opera (no issues found at time of testing)
 Responsive-Design testing
 Responsive testing done on Google DevTools – Device Mode and Browserstack.
 <h2>Deployment</h2>
-App is deloyed here socialmedia-milestone3.herokuapp.com
+<br>App is deloyed here socialmedia-milestone3.herokuapp.com</br>
 Heroku
 Create a new app 
 In the terminal: -log into heroku with heroku login using username and password.
