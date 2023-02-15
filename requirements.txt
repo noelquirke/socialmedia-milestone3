@@ -10,5 +10,5 @@ itsdangerous==1.1.0
 netifaces==0.10.9
 peewee==3.13.3
 python-bcrypt==0.3.2
-Werkzeug==0.16.0
+Werkzeug==2.2.3
 WTForms==2.3.1
